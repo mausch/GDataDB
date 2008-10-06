@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Google.GData.Client;
 using Google.GData.Spreadsheets;
 
@@ -86,10 +85,11 @@ namespace GDataDB {
 
 		private IList<IRow<T>> Find(FeedQuery q) {
 			var feed = (ListFeed) svc.Query(q);
-			return feed.Entries.Cast<ListEntry>()
-				.Select(e => new Row<T>(e) {Element = serializer.Deserialize(e)})
-				.Cast<IRow<T>>()
-				.ToList();
+			var l = new List<IRow<T>>();
+			foreach (ListEntry e in feed.Entries) {
+				l.Add(new Row<T>(e) { Element = serializer.Deserialize(e) });
+			}
+			return l;
 		}
 	}
 }
