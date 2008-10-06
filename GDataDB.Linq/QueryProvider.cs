@@ -21,15 +21,11 @@ namespace GDataDB.Linq {
 			}
 		}
 
-		S IQueryProvider.Execute<S>(Expression expression) {
-			return (S) Execute(expression);
-		}
-
-		object IQueryProvider.Execute(Expression expression) {
-			return Execute(expression);
-		}
-
 		public abstract string GetQueryText(Expression expression);
 		public abstract object Execute(Expression expression);
+
+		public TResult Execute<TResult>(Expression expression) {
+			return (TResult) Execute(expression);
+		}
 	}
 }
