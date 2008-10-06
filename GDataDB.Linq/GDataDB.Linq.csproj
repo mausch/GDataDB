@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{9B543220-CB1D-414D-9787-2DDC08F0EBD1}</ProjectGuid>
+    <ProjectGuid>{B6F26D83-72B3-4B19-9156-4C2FB2C7DBFF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GDataDB</RootNamespace>
-    <AssemblyName>GDataDB</AssemblyName>
+    <RootNamespace>GDataDB.Linq</RootNamespace>
+    <AssemblyName>GDataDB.Linq</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,40 +31,33 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Google.GData.Client, Version=1.2.2.0, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\Google.GData.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.GData.Documents, Version=1.2.2.0, Culture=neutral, PublicKeyToken=099e9a853da5b089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\Google.GData.Documents.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.GData.Extensions, Version=1.2.2.0, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\Google.GData.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.GData.Spreadsheets, Version=1.2.2.0, Culture=neutral, PublicKeyToken=3f77feb76ff0d9a1, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\Google.GData.Spreadsheets.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Database.cs" />
-    <Compile Include="DatabaseClient.cs" />
-    <Compile Include="IDatabase.cs" />
-    <Compile Include="IDatabaseClient.cs" />
-    <Compile Include="IRow.cs" />
-    <Compile Include="ITable.cs" />
+    <Compile Include="ExpressionVisitor.cs" />
+    <Compile Include="GDataDBQueryProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Row.cs" />
-    <Compile Include="Serializer.cs" />
-    <Compile Include="Table.cs" />
+    <Compile Include="Query.cs" />
+    <Compile Include="QueryProvider.cs" />
+    <Compile Include="QueryTranslator.cs" />
+    <Compile Include="TypeSystem.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GDataDB.csproj">
+      <Project>{9B543220-CB1D-414D-9787-2DDC08F0EBD1}</Project>
+      <Name>GDataDB</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
