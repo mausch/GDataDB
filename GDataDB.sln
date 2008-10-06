@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GDataDB", "GDataDB.csproj", "{9B543220-CB1D-414D-9787-2DDC08F0EBD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample", "Sample\Sample.csproj", "{D3FDBE0F-E64E-4742-9F7E-0B77ACFE6380}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9B543220-CB1D-414D-9787-2DDC08F0EBD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B543220-CB1D-414D-9787-2DDC08F0EBD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B543220-CB1D-414D-9787-2DDC08F0EBD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B543220-CB1D-414D-9787-2DDC08F0EBD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3FDBE0F-E64E-4742-9F7E-0B77ACFE6380}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3FDBE0F-E64E-4742-9F7E-0B77ACFE6380}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3FDBE0F-E64E-4742-9F7E-0B77ACFE6380}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3FDBE0F-E64E-4742-9F7E-0B77ACFE6380}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
