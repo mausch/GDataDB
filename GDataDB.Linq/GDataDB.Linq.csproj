@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Evaluator.cs" />
     <Compile Include="ExpressionVisitor.cs" />
     <Compile Include="GDataDBQueryProvider.cs" />
     <Compile Include="ITableExtensions.cs" />

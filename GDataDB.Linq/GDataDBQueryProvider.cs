@@ -11,6 +11,7 @@ namespace GDataDB.Linq {
 		}
 
 		public override string GetQueryText(Expression expression) {
+			expression = Evaluator.PartialEval(expression);
 			return new QueryTranslator().Translate(expression);
 		}
 

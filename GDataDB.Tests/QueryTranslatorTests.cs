@@ -12,7 +12,7 @@ namespace GDataDB.Tests {
 			var t = new MockTable();
 			var q = new Query<Entity>(new GDataDBQueryProvider<Entity>(t));
 			var iq = q.Where(e => e.Description == "pepe");
-			Assert.AreEqual("(description=pepe)", iq.ToString());
+			Assert.AreEqual("(description=\"pepe\")", iq.ToString());
 		}
 
 		[Test]

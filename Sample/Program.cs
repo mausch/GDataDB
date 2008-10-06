@@ -7,7 +7,7 @@ namespace Sample {
 	internal class Program {
 		private static void Main(string[] args) {
 			Console.WriteLine("Connecting");
-			var client = new DatabaseClient("you@gmail.com", "yourpassword");
+			var client = new DatabaseClient("you@gmail.com", "password");
 			const string dbName = "testing";
 			Console.WriteLine("Opening or creating database");
 			var db = client.GetDatabase(dbName) ?? client.CreateDatabase(dbName);
@@ -18,13 +18,13 @@ namespace Sample {
 			Console.WriteLine("{0} elements", all.Count);
 			var r = all.Count > 0 ? all[0] : t.Add(new Entity {Conteudo = "some content", Amount = 5});
 			Console.WriteLine("conteudo: {0}", r.Element.Conteudo);
-			r.Element.Conteudo = "nothing at all " + DateTime.Now;
+			r.Element.Conteudo = "nothing at all";
 			Console.WriteLine("updating row");
 			r.Update();
 			Console.WriteLine("Now there are {0} elements", t.FindAll().Count);
 			{
 				Console.WriteLine("executing a few queries");
-				foreach (var q in new[] { "amount=5", "amount<6", "amount>0", "amount!=6", "amount<>6" }) {
+				foreach (var q in new[] { "amount=5", "amount<6", "amount>0", "amount!=6", "amount<>6", "conteudo=\"nothing at all\"" }) {
 					Console.Write("querying '{0}': ", q);
 					var rows = t.FindStructured(q);
 					Console.WriteLine("{0} elements found", rows.Count);
@@ -33,7 +33,7 @@ namespace Sample {
 			{
 				Console.WriteLine("Linq queries");
 				var rows = from e in t.AsQueryable()
-									 where e.Amount < 10
+									 where e.Conteudo == r.Element.Conteudo
 									 select e;
 				Console.WriteLine("{0} elements found", rows.ToList().Count);
 			}

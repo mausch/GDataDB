@@ -60,7 +60,10 @@ namespace GDataDB.Linq {
 		}
 
 		protected override Expression VisitConstant(ConstantExpression c) {
-			sb.Append(c.Value.ToString());
+			if (c.Value is string)
+				sb.AppendFormat("\"{0}\"", c.Value);
+			else
+				sb.Append(c.Value.ToString());
 			return c;
 		}
 	}
