@@ -36,7 +36,8 @@ namespace GDataDB.Tests {
 		}
 
 		public IList<IRow<Entity>> FindStructured(string query) {
-			throw new NotImplementedException();
+			Console.WriteLine("FindStructured {0}", query);
+			return new List<IRow<Entity>>();
 		}
 
 		public IList<IRow<Entity>> Find(string query, string sq, int start, int count) {

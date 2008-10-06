@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace GDataDB.Linq {
@@ -14,7 +15,7 @@ namespace GDataDB.Linq {
 		}
 
 		public override object Execute(Expression expression) {
-			return table.FindStructured(GetQueryText(expression));
+			return table.FindStructured(GetQueryText(expression)).Select(r => r.Element);
 		}
 	}
 }

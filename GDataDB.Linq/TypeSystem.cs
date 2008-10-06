@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 
 namespace GDataDB.Linq {
+	/// <summary>
+	/// From http://blogs.msdn.com/mattwar/archive/2007/07/30/linq-building-an-iqueryable-provider-part-i.aspx
+	/// </summary>
 	internal static class TypeSystem {
 		internal static Type GetElementType(Type seqType) {
 			Type ienum = FindIEnumerable(seqType);

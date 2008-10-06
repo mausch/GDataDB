@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using GDataDB;
+using GDataDB.Linq;
 
 namespace Sample {
 	internal class Program {
@@ -20,11 +22,20 @@ namespace Sample {
 			Console.WriteLine("updating row");
 			r.Update();
 			Console.WriteLine("Now there are {0} elements", t.FindAll().Count);
-			Console.WriteLine("executing a few queries");
-			foreach (var q in new[] { "amount=5", "amount<6", "amount>0", "amount!=6", "amount<>6" }) {
-				Console.Write("querying '{0}': ", q);
-				var rows = t.FindStructured(q);
-				Console.WriteLine("{0} elements found", rows.Count);
+			{
+				Console.WriteLine("executing a few queries");
+				foreach (var q in new[] { "amount=5", "amount<6", "amount>0", "amount!=6", "amount<>6" }) {
+					Console.Write("querying '{0}': ", q);
+					var rows = t.FindStructured(q);
+					Console.WriteLine("{0} elements found", rows.Count);
+				}
+			}
+			{
+				Console.WriteLine("Linq queries");
+				var rows = from e in t.AsQueryable()
+									 where e.Amount < 10
+									 select e;
+				Console.WriteLine("{0} elements found", rows.ToList().Count);
 			}
 			Console.WriteLine("deleting row");
 			r.Delete();

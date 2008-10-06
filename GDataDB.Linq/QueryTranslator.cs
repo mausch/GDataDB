@@ -37,6 +37,12 @@ namespace GDataDB.Linq {
 				case ExpressionType.NotEqual:
 					sb.Append("!=");
 					break;
+				case ExpressionType.LessThan:
+					sb.Append("<");
+					break;
+				case ExpressionType.GreaterThan:
+					sb.Append(">");
+					break;
 				default:
 					throw new NotSupportedException(string.Format("The binary operator '{0}' is not supported", b.NodeType));
 			}

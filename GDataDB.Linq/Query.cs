@@ -51,12 +51,12 @@ namespace GDataDB.Linq {
 			return ((IEnumerable<T>) provider.Execute(expression)).GetEnumerator();
 		}
 
-		IEnumerator IEnumerable.GetEnumerator() {
-			return ((IEnumerable) provider.Execute(expression)).GetEnumerator();
-		}
-
 		public override string ToString() {
 			return provider.GetQueryText(expression);
+		}
+
+		IEnumerator IEnumerable.GetEnumerator() {
+			return GetEnumerator();
 		}
 	}
 }
