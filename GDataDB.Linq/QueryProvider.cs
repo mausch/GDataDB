@@ -21,7 +21,7 @@ namespace GDataDB.Linq {
 			}
 		}
 
-		public abstract string GetQueryText(Expression expression);
+		public abstract Query GetQuery(Expression expression);
 		public abstract object Execute(Expression expression);
 
 		public TResult Execute<TResult>(Expression expression) {

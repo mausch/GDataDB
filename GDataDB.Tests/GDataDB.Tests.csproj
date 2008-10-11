@@ -50,8 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entity.cs" />
-    <Compile Include="MockTable.cs" />
-    <Compile Include="QueryTranslatorTests.cs" />
+    <Compile Include="DummyComparer.cs" />
+    <Compile Include="DummyTable.cs" />
+    <Compile Include="LinqTranslatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

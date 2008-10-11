@@ -52,7 +52,11 @@ namespace GDataDB.Linq {
 		}
 
 		public override string ToString() {
-			return provider.GetQueryText(expression);
+			return ToQuery().StructuredQuery;
+		}
+
+		public Query ToQuery() {
+			return provider.GetQuery(expression);
 		}
 
 		IEnumerator IEnumerable.GetEnumerator() {

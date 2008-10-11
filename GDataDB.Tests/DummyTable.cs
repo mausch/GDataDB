@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 namespace GDataDB.Tests {
-	public class MockTable : ITable<Entity> {
+	public class DummyTable : ITable<Entity> {
 		public void Delete() {
 			throw new NotImplementedException();
 		}

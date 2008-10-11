@@ -10,13 +10,13 @@ namespace GDataDB.Linq {
 			this.table = table;
 		}
 
-		public override string GetQueryText(Expression expression) {
+		public override Query GetQuery(Expression expression) {
 			expression = Evaluator.PartialEval(expression);
 			return new QueryTranslator().Translate(expression);
 		}
 
 		public override object Execute(Expression expression) {
-			return table.FindStructured(GetQueryText(expression)).Select(r => r.Element);
+			return table.Find(GetQuery(expression)).Select(r => r.Element);
 		}
 	}
 }

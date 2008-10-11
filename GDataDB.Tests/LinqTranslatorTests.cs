@@ -1,16 +1,16 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using GDataDB.Linq;
 using NUnit.Framework;
 
 namespace GDataDB.Tests {
 	[TestFixture]
-	public class QueryTranslatorTests {
+	public class LinqTranslatorTests {
 		private IQueryable<Entity> q;
 
 		[TestFixtureSetUp]
 		public void FixtureSetup() {
-			var qt = new QueryTranslator();
-			var t = new MockTable();
+			var t = new DummyTable();
 			q = new Query<Entity>(new GDataDBQueryProvider<Entity>(t));
 		}
 
@@ -70,7 +70,42 @@ namespace GDataDB.Tests {
 
 		[Test]
 		public void OrderBy() {
-			
+			var iq = (Query<Entity>) q.OrderBy(e => e.Quantity);
+			var sq = iq.ToQuery();
+			Assert.IsNotNull(sq.Order);
+			Assert.IsFalse(sq.Order.Descending);
+			Assert.AreEqual("quantity", sq.Order.ColumnName);
+		}
+
+		[Test]
+		public void OrderByDescending() {
+			var iq = (Query<Entity>) q.OrderByDescending(e => e.Quantity);
+			var sq = iq.ToQuery();
+			Assert.IsNotNull(sq.Order);
+			Assert.IsTrue(sq.Order.Descending);
+			Assert.AreEqual("quantity", sq.Order.ColumnName);
+		}
+
+		[Test]
+		[ExpectedException(typeof (NotSupportedException))]
+		public void OrderBy_With_comparer_is_not_supported() {
+			var iq = (Query<Entity>) q.OrderBy(e => e.Quantity, new DummyComparer<int>());
+			var sq = iq.ToQuery();
+			Assert.IsNotNull(sq.Order);
+			Assert.IsFalse(sq.Order.Descending);
+			Assert.AreEqual("quantity", sq.Order.ColumnName);
+		}
+
+		[Test]
+		public void Where_and_OrderBy() {
+			var iq = (Query<Entity>) q
+			                         	.Where(e => e.Quantity > 5)
+			                         	.OrderBy(e => e.Quantity);
+			var sq = iq.ToQuery();
+			Assert.IsNotNull(sq.Order);
+			Assert.IsNotNull(sq.StructuredQuery);
+			Assert.AreEqual("(quantity>5)", sq.StructuredQuery);
+			Assert.AreEqual("quantity", sq.Order.ColumnName);
 		}
 	}
 }

@@ -49,10 +49,12 @@
     <Compile Include="ExpressionVisitor.cs" />
     <Compile Include="GDataDBQueryProvider.cs" />
     <Compile Include="ITableExtensions.cs" />
+    <Compile Include="OrderTranslator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query.cs" />
     <Compile Include="QueryProvider.cs" />
     <Compile Include="QueryTranslator.cs" />
+    <Compile Include="WhereTranslator.cs" />
     <Compile Include="TypeSystem.cs" />
   </ItemGroup>
   <ItemGroup>
