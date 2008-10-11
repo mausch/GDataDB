@@ -1,30 +1,71 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using GDataDB.Linq;
 using NUnit.Framework;
 
 namespace GDataDB.Tests {
 	[TestFixture]
 	public class QueryTranslatorTests {
-		[Test]
-		public void QueryTranslator() {
+		private IQueryable<Entity> q;
+
+		[TestFixtureSetUp]
+		public void FixtureSetup() {
 			var qt = new QueryTranslator();
 			var t = new MockTable();
-			var q = new Query<Entity>(new GDataDBQueryProvider<Entity>(t));
+			q = new Query<Entity>(new GDataDBQueryProvider<Entity>(t));
+		}
+
+		[Test]
+		public void QueryTranslator() {
 			var iq = q.Where(e => e.Description == "pepe");
 			Assert.AreEqual("(description=\"pepe\")", iq.ToString());
 		}
 
 		[Test]
-		public void Linq() {
-			var t = new MockTable();
-			var q = from r in t.AsQueryable()
-			        where r.Description == "pepe"
-			        select r;
+		public void GreaterThanInt() {
+			var iq = q.Where(e => e.Quantity > 5);
+			Assert.AreEqual("(quantity>5)", iq.ToString());
+		}
 
-			foreach (var e in q) {
-				Console.WriteLine(e.Description);
-			}
+		[Test]
+		public void LessThanInt() {
+			var iq = q.Where(e => e.Quantity < 5);
+			Assert.AreEqual("(quantity<5)", iq.ToString());
+		}
+
+		[Test]
+		public void GreaterThanOrEqualInt() {
+			var iq = q.Where(e => e.Quantity >= 5);
+			Assert.AreEqual("(((quantity>5)||(quantity=5)))", iq.ToString());
+		}
+
+		[Test]
+		public void LessThanOrEqualInt() {
+			var iq = q.Where(e => e.Quantity <= 5);
+			Assert.AreEqual("(((quantity<5)||(quantity=5)))", iq.ToString());
+		}
+
+		[Test]
+		public void Equals() {
+			var iq = q.Where(e => e.Quantity == 5);
+			Assert.AreEqual("(quantity=5)", iq.ToString());
+		}
+
+		[Test]
+		public void NotEquals() {
+			var iq = q.Where(e => e.Quantity != 5);
+			Assert.AreEqual("(quantity!=5)", iq.ToString());
+		}
+
+		[Test]
+		public void Or() {
+			var iq = q.Where(e => e.Quantity > 5 || e.Quantity < 5);
+			Assert.AreEqual("((quantity>5)||(quantity<5))", iq.ToString());
+		}
+
+		[Test]
+		public void And() {
+			var iq = q.Where(e => e.Quantity > 5 && e.Quantity < 5);
+			Assert.AreEqual("((quantity>5)&&(quantity<5))", iq.ToString());
 		}
 	}
 }

@@ -21,32 +21,48 @@ namespace GDataDB.Linq {
 
 		protected override Expression VisitBinary(BinaryExpression b) {
 			sb.Append("(");
-			Visit(b.Left);
 			switch (b.NodeType) {
 				case ExpressionType.And:
 				case ExpressionType.AndAlso:
+					Visit(b.Left);
 					sb.Append("&&");
+					Visit(b.Right);
 					break;
 				case ExpressionType.Or:
 				case ExpressionType.OrElse:
+					Visit(b.Left);
 					sb.Append("||");
+					Visit(b.Right);
 					break;
 				case ExpressionType.Equal:
+					Visit(b.Left);
 					sb.Append("=");
+					Visit(b.Right);
 					break;
 				case ExpressionType.NotEqual:
+					Visit(b.Left);
 					sb.Append("!=");
+					Visit(b.Right);
 					break;
 				case ExpressionType.LessThan:
+					Visit(b.Left);
 					sb.Append("<");
+					Visit(b.Right);
 					break;
 				case ExpressionType.GreaterThan:
+					Visit(b.Left);
 					sb.Append(">");
+					Visit(b.Right);
+					break;
+				case ExpressionType.LessThanOrEqual:
+					Visit(Expression.Or(Expression.LessThan(b.Left, b.Right), Expression.Equal(b.Left, b.Right)));
+					break;
+				case ExpressionType.GreaterThanOrEqual:
+					Visit(Expression.Or(Expression.GreaterThan(b.Left, b.Right), Expression.Equal(b.Left, b.Right)));
 					break;
 				default:
 					throw new NotSupportedException(string.Format("The binary operator '{0}' is not supported", b.NodeType));
 			}
-			Visit(b.Right);
 			sb.Append(")");
 			return b;
 		}
