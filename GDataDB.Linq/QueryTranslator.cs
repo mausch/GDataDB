@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using System;
+using System.Linq.Expressions;
 
 namespace GDataDB.Linq {
 	public class QueryTranslator : ExpressionVisitor {
@@ -11,10 +12,16 @@ namespace GDataDB.Linq {
 
 		protected override Expression VisitMethodCall(MethodCallExpression m) {
 			Visit(m.Arguments[0]);
-			if (m.Method.Name == "Where") {
-				q.StructuredQuery = new WhereTranslator().Translate(m);
-			} else if (m.Method.Name == "OrderBy" || m.Method.Name == "OrderByDescending") {
-				q.Order = new OrderTranslator().Translate(m);
+			switch (m.Method.Name) {
+				case "Where":
+					q.StructuredQuery = new WhereTranslator().Translate(m);
+					break;
+				case "OrderBy":
+				case "OrderByDescending":
+					q.Order = new OrderTranslator().Translate(m);
+					break;
+				default:
+					throw new NotSupportedException(string.Format("Method {0} not supported", m.Method.Name));
 			}
 			return m;
 		}
