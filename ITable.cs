@@ -10,6 +10,7 @@ namespace GDataDB {
 		IList<IRow<T>> FindAll(int start, int count);
 		IList<IRow<T>> Find(string query);
 		IList<IRow<T>> FindStructured(string query);
-		IList<IRow<T>> Find(string query, string sq, int start, int count);
+		IList<IRow<T>> FindStructured(string query, int start, int count);
+		IList<IRow<T>> Find(Query q);
 	}
 }

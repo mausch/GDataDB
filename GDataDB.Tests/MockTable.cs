@@ -2,11 +2,6 @@ using System;
 using System.Collections.Generic;
 
 namespace GDataDB.Tests {
-	public class Entity {
-		public string Description { get; set; }
-		public int Quantity { get; set; }
-	}
-
 	public class MockTable : ITable<Entity> {
 		public void Delete() {
 			throw new NotImplementedException();
@@ -41,8 +36,14 @@ namespace GDataDB.Tests {
 			return new List<IRow<Entity>>();
 		}
 
-		public IList<IRow<Entity>> Find(string query, string sq, int start, int count) {
-			throw new NotImplementedException();
+		public IList<IRow<Entity>> FindStructured(string query, int start, int count) {
+			Console.WriteLine("FindStructured {0} start {1} count {2}", query, start, count);
+			return new List<IRow<Entity>>();
+		}
+
+		public IList<IRow<Entity>> Find(Query q) {
+			Console.WriteLine("Find Query");
+			return new List<IRow<Entity>>();
 		}
 	}
 }

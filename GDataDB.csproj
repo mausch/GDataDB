@@ -58,7 +58,9 @@
     <Compile Include="IDatabaseClient.cs" />
     <Compile Include="IRow.cs" />
     <Compile Include="ITable.cs" />
+    <Compile Include="Order.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Query.cs" />
     <Compile Include="Row.cs" />
     <Compile Include="Serializer.cs" />
     <Compile Include="Table.cs" />

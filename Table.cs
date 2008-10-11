@@ -60,27 +60,35 @@ namespace GDataDB {
 		}
 
 		public IList<IRow<T>> FindAll(int start, int count) {
-			var q = GetQuery();
-			q.StartIndex = start;
-			q.NumberToRetrieve = count;
-			return Find(q);
+			return Find(new Query {
+				Start = start,
+				Count = count,
+			});
 		}
 
 		public IList<IRow<T>> Find(string query) {
-			return Find(query, null, 0, int.MaxValue);
+			return Find(new Query {FreeQuery = query});
 		}
 
 		public IList<IRow<T>> FindStructured(string query) {
-			return Find(null, query, 0, int.MaxValue);
+			return Find(new Query {StructuredQuery = query});
 		}
 
-		public IList<IRow<T>> Find(string query, string sq, int start, int count) {
-			var q = GetQuery();
-			q.Query = query;
-			q.SpreadsheetQuery = sq;
-			q.StartIndex = start;
-			q.NumberToRetrieve = count;
-			return Find(q);
+		public IList<IRow<T>> FindStructured(string query, int start, int count) {
+			return Find(new Query {
+				StructuredQuery = query,
+        Start = start,
+				Count = count,
+			});
+		}
+
+		public IList<IRow<T>> Find(Query q) {
+			var fq = GetQuery();
+			fq.Query = q.FreeQuery;
+			fq.SpreadsheetQuery = q.StructuredQuery;
+			fq.StartIndex = q.Start;
+			fq.NumberToRetrieve = q.Count;
+			return Find(fq);
 		}
 
 		private IList<IRow<T>> Find(FeedQuery q) {
