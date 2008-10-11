@@ -4,6 +4,6 @@
 		public int Count { get; set; }
 		public string FreeQuery { get; set; }
 		public string StructuredQuery { get; set; }
-		private Order Order { get; set; }
+		public Order Order { get; set; }
 	}
 }
