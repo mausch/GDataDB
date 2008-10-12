@@ -126,5 +126,17 @@ namespace GDataDB.Tests {
 			Assert.AreEqual(10, sq.Count);
 			Assert.AreEqual("(quantity>5)", sq.StructuredQuery);			
 		}
+
+		[Test]
+		public void Skip() {
+			var iq = (Query<Entity>)q
+																.Where(e => e.Quantity > 5)
+																.Skip(10)
+																.Take(2);
+			var sq = iq.ToQuery();
+			Assert.AreEqual(10, sq.Start);
+			Assert.AreEqual(2, sq.Count);
+			Assert.AreEqual("(quantity>5)", sq.StructuredQuery);
+		}
 	}
 }
