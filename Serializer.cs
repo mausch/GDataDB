@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Reflection;
 using Google.GData.Spreadsheets;
 
@@ -24,11 +25,20 @@ namespace GDataDB {
 			return o.ToString();
 		}
 
+		public object ConvertFrom(object value, Type t) {
+			if (t.IsGenericType && t.GetGenericTypeDefinition().Equals(typeof(Nullable<>))) {
+				var nc = new NullableConverter(t);
+				return nc.ConvertFrom(value);
+			}
+			return Convert.ChangeType(value, t);			
+		}
+
 		public T Deserialize(ListEntry e) {
-			var r = (T)Activator.CreateInstance(typeof(T));
+			var t = typeof (T);
+			var r = (T)Activator.CreateInstance(t);
 			foreach (ListEntry.Custom c in e.Elements) {
-				var property = typeof(T).GetProperty(c.LocalName, BindingFlags.IgnoreCase | BindingFlags.Instance | BindingFlags.Public);
-				var value = Convert.ChangeType(c.Value, property.PropertyType);
+				var property = t.GetProperty(c.LocalName, BindingFlags.IgnoreCase | BindingFlags.Instance | BindingFlags.Public);
+				var value = ConvertFrom(c.Value, property.PropertyType);
 				property.SetValue(r, value, null);
 			}
 			return r;

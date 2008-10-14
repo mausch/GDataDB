@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace GDataDB {
@@ -12,5 +13,6 @@ namespace GDataDB {
 		IList<IRow<T>> FindStructured(string query);
 		IList<IRow<T>> FindStructured(string query, int start, int count);
 		IList<IRow<T>> Find(Query q);
+		Uri GetFeedUrl();
 	}
 }

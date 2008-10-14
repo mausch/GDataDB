@@ -19,11 +19,9 @@ namespace GDataDB {
 		}
 
 		public void DeleteAll() {
-			throw new NotImplementedException();
-			//var feed = GetFeed();
-			//feed.ShouldBePersisted();
-			//feed.Entries.Clear();
-			//feed.Publish();
+			foreach (var row in FindAll()) {
+				row.Delete();
+			}
 		}
 
 		private ListQuery GetQuery() {
@@ -88,7 +86,15 @@ namespace GDataDB {
 			fq.SpreadsheetQuery = q.StructuredQuery;
 			fq.StartIndex = q.Start;
 			fq.NumberToRetrieve = q.Count;
+			if (q.Order != null) {
+				fq.OrderByColumn = q.Order.ColumnName;
+				fq.Reverse = q.Order.Descending;
+			}
 			return Find(fq);
+		}
+
+		public Uri GetFeedUrl() {
+			return new Uri(GetFeed().Feed);
 		}
 
 		private IList<IRow<T>> Find(FeedQuery q) {

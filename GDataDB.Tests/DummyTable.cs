@@ -45,5 +45,9 @@ namespace GDataDB.Tests {
 			Console.WriteLine("Find Query");
 			return new List<IRow<Entity>>();
 		}
+
+		public Uri GetFeedUrl() {
+			throw new NotImplementedException();
+		}
 	}
 }

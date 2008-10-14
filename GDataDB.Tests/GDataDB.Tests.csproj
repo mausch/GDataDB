@@ -52,6 +52,8 @@
     <Compile Include="Entity.cs" />
     <Compile Include="DummyComparer.cs" />
     <Compile Include="DummyTable.cs" />
+    <Compile Include="IntegrationEntity.cs" />
+    <Compile Include="IntegrationTests.cs" />
     <Compile Include="LinqTranslatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
