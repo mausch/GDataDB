@@ -1,10 +1,23 @@
 ﻿using System;
+using System.Linq;
+using GDataDB.Linq;
 using NUnit.Framework;
 
 namespace GDataDB.Tests {
 	[TestFixture]
 	public class IntegrationTests {
 		private ITable<IntegrationEntity> table;
+
+		private readonly IntegrationEntity e1 = new IntegrationEntity {
+			DateTimeProp = new DateTime(2001, 1, 1, 5, 6, 7),
+			IntProp = 1,
+		};
+
+		private readonly IntegrationEntity e2 = new IntegrationEntity {
+			DateTimeProp = new DateTime(2005, 6, 7, 10, 6, 7),
+			IntProp = 1000,
+		};
+
 
 		[TestFixtureSetUp]
 		public void FixtureSetup() {
@@ -17,11 +30,56 @@ namespace GDataDB.Tests {
 			Console.WriteLine("Opening or creating table");
 			table = db.GetTable<IntegrationEntity>(tableName) ?? db.CreateTable<IntegrationEntity>(tableName);
 			table.DeleteAll();
-			table.Add(new IntegrationEntity());
+			table.Add(e1);
+			table.Add(e2);
 		}
 
 		[Test]
-		public void tt() {
+		public void LINQ_orderby_int() {
+			var q = from r in table.AsQueryable()
+			        orderby r.IntProp
+			        select r;
+
+			var l = q.ToList();
+			Assert.AreEqual(2, l.Count);
+			Assert.AreEqual(e1.IntProp, l[0].IntProp);
+			Assert.AreEqual(e2.IntProp, l[1].IntProp);
+		}
+
+		[Test]
+		public void LINQ_orderby_int_descending() {
+			var q = from r in table.AsQueryable()
+			        orderby r.IntProp descending
+			        select r;
+
+			var l = q.ToList();
+			Assert.AreEqual(2, l.Count);
+			Assert.AreEqual(e2.IntProp, l[0].IntProp);
+			Assert.AreEqual(e1.IntProp, l[1].IntProp);
+		}
+
+		[Test]
+		public void LINQ_orderby_datetime() {
+			var q = from r in table.AsQueryable()
+			        orderby r.DateTimeProp
+			        select r;
+
+			var l = q.ToList();
+			Assert.AreEqual(2, l.Count);
+			Assert.AreEqual(e1.DateTimeProp, l[0].DateTimeProp);
+			Assert.AreEqual(e2.DateTimeProp, l[1].DateTimeProp);
+		}
+
+		[Test]
+		public void LINQ_orderby_datetime_descending() {
+			var q = from r in table.AsQueryable()
+			        orderby r.DateTimeProp descending
+			        select r;
+
+			var l = q.ToList();
+			Assert.AreEqual(2, l.Count);
+			Assert.AreEqual(e2.DateTimeProp, l[0].DateTimeProp);
+			Assert.AreEqual(e1.DateTimeProp, l[1].DateTimeProp);
 		}
 	}
 }

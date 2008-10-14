@@ -14,6 +14,7 @@ namespace Sample {
 			const string tableName = "testtable";
 			Console.WriteLine("Opening or creating table");
 			var t = db.GetTable<Entity>(tableName) ?? db.CreateTable<Entity>(tableName);
+			Console.WriteLine("Feed url for this table is '{0}'", t.GetFeedUrl());
 			var all = t.FindAll();
 			Console.WriteLine("{0} elements", all.Count);
 			var r = all.Count > 0 ? all[0] : t.Add(new Entity {Conteudo = "some content", Amount = 5});
@@ -34,8 +35,9 @@ namespace Sample {
 				Console.WriteLine("Linq queries");
 				var rows = from e in t.AsQueryable()
 									 where e.Conteudo == r.Element.Conteudo
+									 orderby e.Amount
 									 select e;
-				Console.WriteLine("{0} elements found", rows.ToList().Count);
+				Console.WriteLine("{0} elements found", rows.ToList().Count());
 			}
 			Console.WriteLine("deleting row");
 			r.Delete();
