@@ -81,5 +81,28 @@ namespace GDataDB.Tests {
 			Assert.AreEqual(e2.DateTimeProp, l[0].DateTimeProp);
 			Assert.AreEqual(e1.DateTimeProp, l[1].DateTimeProp);
 		}
+
+		[Test]
+		public void LINQ_orderby_datetime_descending_take() {
+			var q = table.AsQueryable()
+				.OrderByDescending(r => r.DateTimeProp)
+				.Take(1)
+				.ToList();
+
+			Assert.AreEqual(1, q.Count);
+			Assert.AreEqual(e2.DateTimeProp, q[0].DateTimeProp);
+		}
+
+		[Test]
+		public void LINQ_orderby_datetime_descending_take_skip() {
+			var q = table.AsQueryable()
+				.OrderByDescending(r => r.DateTimeProp)
+				.Skip(1)
+				.Take(1)
+				.ToList();
+
+			Assert.AreEqual(1, q.Count);
+			Assert.AreEqual(e1.DateTimeProp, q[0].DateTimeProp);
+		}
 	}
 }
