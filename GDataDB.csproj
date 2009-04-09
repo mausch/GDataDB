@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{9B543220-CB1D-414D-9787-2DDC08F0EBD1}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -31,19 +31,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Google.GData.Client, Version=1.2.2.0, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL">
+    <Reference Include="Google.GData.Client, Version=1.4.0.2, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\Google.GData.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Google.GData.Documents, Version=1.2.2.0, Culture=neutral, PublicKeyToken=099e9a853da5b089, processorArchitecture=MSIL">
+    <Reference Include="Google.GData.Documents, Version=1.4.0.2, Culture=neutral, PublicKeyToken=099e9a853da5b089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\Google.GData.Documents.dll</HintPath>
     </Reference>
-    <Reference Include="Google.GData.Extensions, Version=1.2.2.0, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876, processorArchitecture=MSIL">
+    <Reference Include="Google.GData.Extensions, Version=1.4.0.2, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\Google.GData.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="Google.GData.Spreadsheets, Version=1.2.2.0, Culture=neutral, PublicKeyToken=3f77feb76ff0d9a1, processorArchitecture=MSIL">
+    <Reference Include="Google.GData.Spreadsheets, Version=1.4.0.2, Culture=neutral, PublicKeyToken=3f77feb76ff0d9a1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\Google.GData.Spreadsheets.dll</HintPath>
     </Reference>
