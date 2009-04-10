@@ -15,7 +15,8 @@ namespace GDataDB {
 		}
 
 		public void Delete() {
-			svc.Delete(entry); // FIXME doesn't work! throws
+            entry.Delete(); //doesn't work! throws
+			//svc.Delete(entry); // FIXME doesn't work! throws
 		}
 
 		public void DeleteAll() {

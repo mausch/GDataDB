@@ -7,6 +7,7 @@ namespace GDataDB.Tests {
 	[TestFixture]
 	public class IntegrationTests {
 		private ITable<IntegrationEntity> table;
+	    private IDatabase db;
 
 		private readonly IntegrationEntity e1 = new IntegrationEntity {
 			DateTimeProp = new DateTime(2001, 1, 1, 5, 6, 7),
@@ -25,7 +26,7 @@ namespace GDataDB.Tests {
 			var client = new DatabaseClient("you@gmail.com", "password");
 			const string dbName = "IntegrationTests";
 			Console.WriteLine("Opening or creating database");
-			var db = client.GetDatabase(dbName) ?? client.CreateDatabase(dbName);
+			db = client.GetDatabase(dbName) ?? client.CreateDatabase(dbName);
 			const string tableName = "IntegrationTests";
 			Console.WriteLine("Opening or creating table");
 			table = db.GetTable<IntegrationEntity>(tableName) ?? db.CreateTable<IntegrationEntity>(tableName);
@@ -33,6 +34,12 @@ namespace GDataDB.Tests {
 			table.Add(e1);
 			table.Add(e2);
 		}
+
+        [TestFixtureTearDown]
+        public void FixtureTearDown() {
+            table.Delete();
+            db.Delete();
+        }
 
 		[Test]
 		public void LINQ_orderby_int() {
