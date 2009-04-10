@@ -24,7 +24,7 @@ namespace GDataDB.Linq {
 					q.Count = (int)((ConstantExpression)m.Arguments[1]).Value;
 					break;
 				case "Skip":
-					q.Start = (int)((ConstantExpression)m.Arguments[1]).Value;
+					q.Start = (int)((ConstantExpression)m.Arguments[1]).Value+1;
 					break;
 				default:
 					throw new NotSupportedException(string.Format("Method {0} not supported", m.Method.Name));
