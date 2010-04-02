@@ -54,7 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Database.cs" />
+    <Compile Include="Impl\Database.cs" />
     <Compile Include="DatabaseClient.cs" />
     <Compile Include="IDatabase.cs" />
     <Compile Include="IDatabaseClient.cs" />
@@ -63,9 +63,9 @@
     <Compile Include="Order.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query.cs" />
-    <Compile Include="Row.cs" />
-    <Compile Include="Serializer.cs" />
-    <Compile Include="Table.cs" />
+    <Compile Include="Impl\Row.cs" />
+    <Compile Include="Impl\Serializer.cs" />
+    <Compile Include="Impl\Table.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

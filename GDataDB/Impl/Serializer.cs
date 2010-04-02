@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Reflection;
 using Google.GData.Spreadsheets;
 
-namespace GDataDB {
+namespace GDataDB.Impl {
     /// <summary>
     /// (de)serializes an object into a spreadsheet row
     /// Uses only the object properties.
