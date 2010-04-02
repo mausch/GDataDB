@@ -30,7 +30,8 @@ namespace GDataDB.Tests {
 			const string tableName = "IntegrationTests";
 			Console.WriteLine("Opening or creating table");
 			table = db.GetTable<IntegrationEntity>(tableName) ?? db.CreateTable<IntegrationEntity>(tableName);
-			table.DeleteAll();
+            foreach (var r in table.FindAll())
+                r.Delete();
 			table.Add(e1);
 			table.Add(e2);
 		}

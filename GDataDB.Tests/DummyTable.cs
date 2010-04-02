@@ -7,10 +7,6 @@ namespace GDataDB.Tests {
 			throw new NotImplementedException();
 		}
 
-		public void DeleteAll() {
-			throw new NotImplementedException();
-		}
-
 		public IRow<Entity> Add(Entity e) {
 			throw new NotImplementedException();
 		}

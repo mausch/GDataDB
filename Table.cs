@@ -19,12 +19,6 @@ namespace GDataDB {
 			//svc.Delete(entry); // FIXME doesn't work! throws
 		}
 
-		public void DeleteAll() {
-			foreach (var row in FindAll()) {
-				row.Delete();
-			}
-		}
-
 		private ListQuery GetQuery() {
 			return new ListQuery(GetLink().HRef.Content);
 		}

@@ -13,11 +13,6 @@ namespace GDataDB {
         void Delete();
 
         /// <summary>
-        /// Deletes all rows in this worksheet
-        /// </summary>
-        void DeleteAll();
-
-        /// <summary>
         /// Adds a new row
         /// </summary>
         /// <param name="e">Object to store</param>

@@ -41,7 +41,6 @@ namespace Sample {
 			}
 			Console.WriteLine("deleting row");
 			r.Delete();
-			//t.DeleteAll();
 			//Console.WriteLine("deleting table"); // FIXME doesn't work!
 			//t.Delete();
 			//Console.WriteLine("deleting database"); // FIXME doesn't work!
