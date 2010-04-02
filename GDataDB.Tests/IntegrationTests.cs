@@ -37,8 +37,17 @@ namespace GDataDB.Tests {
 
         [TestFixtureTearDown]
         public void FixtureTearDown() {
-            table.Delete();
-            db.Delete();
+            //table.Delete();
+            //db.Delete();
+        }
+
+        [Test]
+        public void Add() {
+            table.Add(new IntegrationEntity {
+                FloatProp = 123.45f,
+                DecimalProp = 234.56m,
+                DoubleProp = 333.44,
+            });
         }
 
 		[Test]
