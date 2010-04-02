@@ -7,7 +7,7 @@ namespace GDataDB {
     /// <summary>
     /// (de)serializes an object into a spreadsheet row
     /// Uses only the object properties.
-    /// Property names are using as column names in the spreadsheet
+    /// Property names are used as column names in the spreadsheet
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class Serializer<T> {
