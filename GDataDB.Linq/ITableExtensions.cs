@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using GDataDB.Linq.Impl;
 
 namespace GDataDB.Linq {
 	public static class ITableExtensions {

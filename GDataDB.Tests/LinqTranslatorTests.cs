@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using GDataDB.Linq;
+using GDataDB.Linq.Impl;
 using NUnit.Framework;
 
 namespace GDataDB.Tests {
