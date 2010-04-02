@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GDataDB", "GDataDB.csproj", "{9B543220-CB1D-414D-9787-2DDC08F0EBD1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GDataDB", "GDataDB\GDataDB.csproj", "{9B543220-CB1D-414D-9787-2DDC08F0EBD1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample", "Sample\Sample.csproj", "{D3FDBE0F-E64E-4742-9F7E-0B77ACFE6380}"
 EndProject

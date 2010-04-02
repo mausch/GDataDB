@@ -58,7 +58,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GDataDB.csproj">
+    <ProjectReference Include="..\GDataDB\GDataDB.csproj">
       <Project>{9B543220-CB1D-414D-9787-2DDC08F0EBD1}</Project>
       <Name>GDataDB</Name>
     </ProjectReference>
