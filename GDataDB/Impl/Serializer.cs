@@ -17,10 +17,12 @@ namespace GDataDB.Impl {
 
         public ListEntry Serialize(T e, ListEntry record) {
             foreach (var p in typeof (T).GetProperties()) {
-                record.Elements.Add(new ListEntry.Custom {
-                    LocalName = p.Name.ToLowerInvariant(), // for some reason this HAS to be lowercase or it throws
-                    Value = ToNullOrString(p.GetValue(e, null)),
-                });
+				if (p.CanRead) {
+					record.Elements.Add(new ListEntry.Custom {
+						LocalName = p.Name.ToLowerInvariant(), // for some reason this HAS to be lowercase or it throws
+						Value = ToNullOrString(p.GetValue(e, null)),
+					});
+				}
             }
             return record;
         }
@@ -44,8 +46,10 @@ namespace GDataDB.Impl {
             var r = (T) Activator.CreateInstance(t);
             foreach (ListEntry.Custom c in e.Elements) {
                 var property = t.GetProperty(c.LocalName, BindingFlags.IgnoreCase | BindingFlags.Instance | BindingFlags.Public);
-                var value = ConvertFrom(c.Value, property.PropertyType);
-                property.SetValue(r, value, null);
+				if (property.CanWrite) {
+					var value = ConvertFrom(c.Value, property.PropertyType);
+					property.SetValue(r, value, null);
+				}
             }
             return r;
         }
