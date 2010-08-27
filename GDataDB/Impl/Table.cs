@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Google.GData.Client;
 using Google.GData.Spreadsheets;
@@ -15,8 +15,8 @@ namespace GDataDB.Impl {
         }
 
         public void Delete() {
-            entry.Delete(); //doesn't work! throws
-            //svc.Delete(entry); // FIXME doesn't work! throws
+            var wsFeed = (WorksheetFeed)svc.Query(new WorksheetQuery(entry.SelfUri.ToString()));
+            wsFeed.Entries[0].Delete();
         }
 
         private ListQuery GetQuery() {
