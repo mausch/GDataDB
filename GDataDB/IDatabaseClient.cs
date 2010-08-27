@@ -1,3 +1,5 @@
+using Google.GData.Client;
+
 namespace GDataDB {
     /// <summary>
     /// Google spreadsheet service entry point
