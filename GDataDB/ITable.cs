@@ -10,7 +10,7 @@ namespace GDataDB {
         /// <summary>
         /// Deletes this worksheet
         /// </summary>
-        //void Delete();
+        void Delete();
 
         /// <summary>
         /// Adds a new row
