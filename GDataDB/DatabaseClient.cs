@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using GDataDB.Impl;
 using Google.GData.Client;
@@ -8,8 +8,18 @@ using SpreadsheetQuery=Google.GData.Documents.SpreadsheetQuery;
 
 namespace GDataDB {
 	public class DatabaseClient : IDatabaseClient {
-		public IService DocumentService { get; set;}
-		public IService SpreadsheetService { get; set; } 
+        	private readonly IService documentService;
+        	private readonly IService spreadsheetService;
+
+        	public IService DocumentService
+        	{
+            		get { return documentService; }
+        	}
+
+        	public IService SpreadsheetService
+        	{
+            		get { return spreadsheetService; }
+        	}
 
 		public DatabaseClient(string username, string password) {
 			var docService = new DocumentsService("database");
@@ -32,7 +42,7 @@ namespace GDataDB {
 		}
 
 		public IDatabase GetDatabase(string name) {
-			var feed = DocumentService.Query(new SpreadsheetQuery {TitleExact = true, Title = name});
+			var feed = DocumentService.Query(new SpreadsheetQuery {TitleExact = true, Title = name,  ShowDeleted = false });
 			if (feed.Entries.Count == 0)
 				return null;
 			return new Database(SpreadsheetService, feed.Entries[0]);
