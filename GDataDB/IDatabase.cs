@@ -22,6 +22,6 @@ namespace GDataDB {
         /// <summary>
         /// Deletes this spreadsheet document
         /// </summary>
-        //void Delete();
+        void Delete();
     }
 }
