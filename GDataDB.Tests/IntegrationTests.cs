@@ -30,11 +30,15 @@ namespace GDataDB.Tests {
 			const string tableName = "IntegrationTests";
 			Console.WriteLine("Opening or creating table");
 			table = db.GetTable<IntegrationEntity>(tableName) ?? db.CreateTable<IntegrationEntity>(tableName);
+		}
+
+        [SetUp]
+        public void setup() {
             foreach (var r in table.FindAll())
                 r.Delete();
-			table.Add(e1);
-			table.Add(e2);
-		}
+            table.Add(e1);
+            table.Add(e2);
+        }
 
         [TestFixtureTearDown]
         public void FixtureTearDown() {
