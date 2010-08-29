@@ -33,19 +33,19 @@
     <DocumentationFile>bin\Release\GDataDB.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Google.GData.Client, Version=1.4.0.2, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL">
+    <Reference Include="Google.GData.Client, Version=1.6.0.0, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Google.GData.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Google.GData.Documents, Version=1.4.0.2, Culture=neutral, PublicKeyToken=099e9a853da5b089, processorArchitecture=MSIL">
+    <Reference Include="Google.GData.Documents, Version=1.6.0.0, Culture=neutral, PublicKeyToken=e4daaad656f19bb9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Google.GData.Documents.dll</HintPath>
     </Reference>
-    <Reference Include="Google.GData.Extensions, Version=1.4.0.2, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876, processorArchitecture=MSIL">
+    <Reference Include="Google.GData.Extensions, Version=1.6.0.0, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Google.GData.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="Google.GData.Spreadsheets, Version=1.4.0.2, Culture=neutral, PublicKeyToken=3f77feb76ff0d9a1, processorArchitecture=MSIL">
+    <Reference Include="Google.GData.Spreadsheets, Version=1.6.0.0, Culture=neutral, PublicKeyToken=3f77feb76ff0d9a1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Google.GData.Spreadsheets.dll</HintPath>
     </Reference>
