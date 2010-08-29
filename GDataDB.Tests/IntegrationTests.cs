@@ -42,8 +42,8 @@ namespace GDataDB.Tests {
 
         [TestFixtureTearDown]
         public void FixtureTearDown() {
-            //table.Delete();
-            //db.Delete();
+            table.Delete();
+            db.Delete();
         }
 
         [Test]
