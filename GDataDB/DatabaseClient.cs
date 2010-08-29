@@ -24,11 +24,11 @@ namespace GDataDB {
 		public DatabaseClient(string username, string password) {
 			var docService = new DocumentsService("database");
 			docService.setUserCredentials(username, password);
-			DocumentService = docService;
+			documentService = docService;
 
 			var ssService = new SpreadsheetsService("database");
 			ssService.setUserCredentials(username, password);
-			SpreadsheetService = ssService;
+			spreadsheetService = ssService;
 		}
 
 		public IDatabase CreateDatabase(string name) {
@@ -36,16 +36,16 @@ namespace GDataDB {
 				using (var sw = new StreamWriter(ms)) {
 					sw.WriteLine(",,,");
 					var spreadSheet = DocumentService.Insert(new Uri(DocumentsListQuery.documentsBaseUri), ms, "text/csv", name);
-					return new Database(SpreadsheetService, spreadSheet);
+					return new Database(this, spreadSheet);
 				}
 			}
 		}
 
 		public IDatabase GetDatabase(string name) {
-			var feed = DocumentService.Query(new SpreadsheetQuery {TitleExact = true, Title = name,  ShowDeleted = false });
+			var feed = DocumentService.Query(new SpreadsheetQuery {TitleExact = true, Title = name });
 			if (feed.Entries.Count == 0)
 				return null;
-			return new Database(SpreadsheetService, feed.Entries[0]);
+			return new Database(this, feed.Entries[0]);
 		}
 	}
 }
