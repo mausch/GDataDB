@@ -17,7 +17,7 @@
     </ItemGroup>
     <RemoveDir Directories="$(MergedOutputPath)"/>
     <MakeDir Directories="$(MergedOutputPath)" ContinueOnError="true"/>
-    <ILMerge InputAssemblies="@(MergeAsm)" OutputFile="$(MergedOutputPath)\GDataDB.dll" Internalize="true" XmlDocs="true" ExcludeFile="$(MSBuildProjectDirectory)\ilmerge.exclude"/>
+    <ILMerge.MSBuild.Tasks.ILMerge InputAssemblies="@(MergeAsm)" OutputFile="$(MergedOutputPath)\GDataDB.dll" Internalize="true" XmlDocs="true" ExcludeFile="$(MSBuildProjectDirectory)\ilmerge.exclude"/>
   </Target>
   <Target Name="Build">
     <MSBuild Projects="GDataDB.sln" StopOnFirstFailure="true" Properties="$(BuildConfigProp)" BuildInParallel="true" Targets="Rebuild"/>
