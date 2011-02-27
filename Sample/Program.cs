@@ -41,10 +41,10 @@ namespace Sample {
 			}
 			Console.WriteLine("deleting row");
 			r.Delete();
-			//Console.WriteLine("deleting table"); // FIXME doesn't work!
-			//t.Delete();
-			//Console.WriteLine("deleting database"); // FIXME doesn't work!
-			//db.Delete();
+			Console.WriteLine("deleting table");
+			t.Delete();
+			Console.WriteLine("deleting database");
+			db.Delete();
 			Console.WriteLine("Press any key...");
 			Console.ReadKey();
 		}
