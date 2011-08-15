@@ -46,6 +46,8 @@ namespace GDataDB.Impl {
             var r = (T) Activator.CreateInstance(t);
             foreach (ListEntry.Custom c in e.Elements) {
                 var property = t.GetProperty(c.LocalName, BindingFlags.IgnoreCase | BindingFlags.Instance | BindingFlags.Public);
+                if (property == null)
+                    continue;
 				if (property.CanWrite) {
 					var value = ConvertFrom(c.Value, property.PropertyType);
 					property.SetValue(r, value, null);
