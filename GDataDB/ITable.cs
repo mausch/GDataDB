@@ -13,6 +13,12 @@ namespace GDataDB {
         void Delete();
 
         /// <summary>
+        /// Renames this worksheet
+        /// </summary>
+        /// <param name="newName"></param>
+        void Rename(string newName);
+
+        /// <summary>
         /// Adds a new row
         /// </summary>
         /// <param name="e">Object to store</param>

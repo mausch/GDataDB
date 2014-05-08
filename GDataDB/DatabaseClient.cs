@@ -49,7 +49,13 @@ namespace GDataDB {
                     sw.Flush();
                     ms.Position = 0;
                     var spreadSheet = DocumentService.Insert(new Uri(DocumentsListQuery.documentsBaseUri + "?convert=true"), ms, "text/csv", name);
-                    return new Database(this, spreadSheet);
+                    var db = new Database(this, spreadSheet);
+
+                    // Get default table and rename it to something random to make it "invisible".
+                    // Otherwise Google throws "Blank rows cannot be written"
+                    var t = db.GetTable<object>(name);
+                    t.Rename(Guid.NewGuid().ToString());
+                    return db;
                 }
             }
         }

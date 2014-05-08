@@ -8,6 +8,8 @@ namespace GDataDB.Impl {
 
         public Row(ListEntry entry) {
             this.entry = entry;
+            entry.Etag = "*";
+            entry.Dirty = true;
         }
 
         public void Update() {

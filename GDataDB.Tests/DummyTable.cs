@@ -7,6 +7,10 @@ namespace GDataDB.Tests {
 			throw new NotImplementedException();
 		}
 
+        public void Rename(string newName) {
+            throw new NotImplementedException();
+        }
+
 		public IRow<Entity> Add(Entity e) {
 			throw new NotImplementedException();
 		}

@@ -12,11 +12,18 @@ namespace GDataDB.Impl {
         public Table(IService svc, WorksheetEntry entry) {
             this.svc = svc;
             this.entry = entry;
+            entry.Etag = "*";
+            entry.Dirty = true;
         }
 
         public void Delete() {
             var wsFeed = (WorksheetFeed)svc.Query(new WorksheetQuery(entry.SelfUri.ToString()));
             wsFeed.Entries[0].Delete();
+        }
+
+        public void Rename(string newName) {
+            entry.Title = new AtomTextConstruct(AtomTextConstructElementType.Title, newName);
+            entry.Update();
         }
 
         private ListQuery GetQuery() {
