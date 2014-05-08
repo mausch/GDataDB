@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1A24D144-3814-4684-AD96-038CEBD71207}"
 	ProjectSection(SolutionItems) = preProject
 		GDataDB.proj = GDataDB.proj
@@ -13,6 +13,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GDataDB.Tests", "GDataDB.Tests\GDataDB.Tests.csproj", "{5B1A7187-CC83-4677-9CEE-55727F62AC82}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GDataDB.Linq", "GDataDB.Linq\GDataDB.Linq.csproj", "{B6F26D83-72B3-4B19-9156-4C2FB2C7DBFF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{731AB9A4-6377-41FB-A36F-2C1995E5E019}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

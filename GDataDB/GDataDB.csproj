@@ -16,6 +16,8 @@
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -37,21 +39,26 @@
     <DocumentationFile>bin\Release\GDataDB.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Google.GData.AccessControl, Version=1.9.0.0, Culture=neutral, PublicKeyToken=b4b8eb9a7afc8328, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Google.GData.AccessControl.dll</HintPath>
+    <Reference Include="Google.GData.AccessControl">
+      <HintPath>..\packages\Google.GData.AccessControl.2.2.0.0\lib\Google.GData.AccessControl.dll</HintPath>
     </Reference>
-    <Reference Include="Google.GData.Client">
-      <HintPath>..\lib\Google.GData.Client.dll</HintPath>
+    <Reference Include="Google.GData.Client, Version=2.2.0.0, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Google.GData.Client.2.2.0.0\lib\Google.GData.Client.dll</HintPath>
     </Reference>
     <Reference Include="Google.GData.Documents">
-      <HintPath>..\lib\Google.GData.Documents.dll</HintPath>
+      <HintPath>..\packages\Google.GData.Documents.2.2.0.0\lib\Google.GData.Documents.dll</HintPath>
     </Reference>
-    <Reference Include="Google.GData.Extensions">
-      <HintPath>..\lib\Google.GData.Extensions.dll</HintPath>
+    <Reference Include="Google.GData.Extensions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Google.GData.Extensions.2.2.0.0\lib\Google.GData.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="Google.GData.Spreadsheets">
-      <HintPath>..\lib\Google.GData.Spreadsheets.dll</HintPath>
+    <Reference Include="Google.GData.Spreadsheets, Version=2.2.0.0, Culture=neutral, PublicKeyToken=3f77feb76ff0d9a1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Google.GData.Spreadsheets.2.2.0.0\lib\Google.GData.Spreadsheets.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.0.5\lib\net20\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -71,7 +78,17 @@
     <Compile Include="Impl\Serializer.cs" />
     <Compile Include="Impl\Table.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

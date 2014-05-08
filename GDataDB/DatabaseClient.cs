@@ -5,6 +5,7 @@ using Google.GData.Client;
 using Google.GData.Documents;
 using Google.GData.Spreadsheets;
 using SpreadsheetQuery=Google.GData.Documents.SpreadsheetQuery;
+using System.Text;
 
 namespace GDataDB {
 	public class DatabaseClient : IDatabaseClient {
@@ -32,14 +33,26 @@ namespace GDataDB {
 		}
 
 		public IDatabase CreateDatabase(string name) {
-			using (var ms = new MemoryStream()) {
+            /*
+            // GDataRequestException : Can not update a read-only feed
+            var entry = new DocumentEntry();
+            entry.Title.Text = name;
+            entry.Categories.Add(DocumentEntry.SPREADSHEET_CATEGORY);
+            var feed = new AtomFeed(new Uri(DocumentsListQuery.documentsBaseUri), DocumentService);
+            var newEntry = DocumentService.Insert(feed, entry);
+            return new Database(this, newEntry);
+             */
+
+            using (var ms = new MemoryStream()) {
 				using (var sw = new StreamWriter(ms)) {
 					sw.WriteLine(",,,");
-					var spreadSheet = DocumentService.Insert(new Uri(DocumentsListQuery.documentsBaseUri), ms, "text/csv", name);
-					return new Database(this, spreadSheet);
-				}
-			}
-		}
+                    sw.Flush();
+                    ms.Position = 0;
+                    var spreadSheet = DocumentService.Insert(new Uri(DocumentsListQuery.documentsBaseUri + "?convert=true"), ms, "text/csv", name);
+                    return new Database(this, spreadSheet);
+                }
+            }
+        }
 
 		public IDatabase GetDatabase(string name) {
 			var feed = DocumentService.Query(new SpreadsheetQuery {TitleExact = true, Title = name });
