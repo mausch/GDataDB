@@ -34,8 +34,7 @@ namespace GDataDB.Tests {
 
         [SetUp]
         public void setup() {
-            foreach (var r in table.FindAll())
-                r.Delete();
+            table.Clear();
             table.Add(e1);
             table.Add(e2);
         }

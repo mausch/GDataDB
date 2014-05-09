@@ -13,6 +13,12 @@ namespace GDataDB {
         void Delete();
 
         /// <summary>
+        /// Deletes all rows in this worksheet.
+        /// This operation is not atomic.
+        /// </summary>
+        void Clear();
+
+        /// <summary>
         /// Renames this worksheet
         /// </summary>
         /// <param name="newName"></param>

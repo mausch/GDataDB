@@ -21,6 +21,13 @@ namespace GDataDB.Impl {
             wsFeed.Entries[0].Delete();
         }
 
+        public void Clear() {
+            var rows = new List<IRow<T>>(FindAll());
+            rows.Reverse();
+            foreach (var e in rows)
+                e.Delete();
+        }
+
         public void Rename(string newName) {
             entry.Title = new AtomTextConstruct(AtomTextConstructElementType.Title, newName);
             entry.Update();

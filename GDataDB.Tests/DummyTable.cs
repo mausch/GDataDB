@@ -7,7 +7,11 @@ namespace GDataDB.Tests {
 			throw new NotImplementedException();
 		}
 
-        public void Rename(string newName) {
+	    public void Clear() {
+	        throw new NotImplementedException();
+	    }
+
+	    public void Rename(string newName) {
             throw new NotImplementedException();
         }
 
