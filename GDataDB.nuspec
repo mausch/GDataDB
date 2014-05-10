@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>GDataDB</id>
+    <version>0.5.0.0</version>
+    <authors>Mauricio Scheffer</authors>
+    <owners>Mauricio Scheffer</owners>
+    <licenseUrl>http://github.com/mausch/GDataDB/raw/master/license.txt</licenseUrl>
+    <projectUrl>http://github.com/mausch/GDataDB</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A database-like interface to Google Spreadsheets for .Net</description>
+    <summary>A database-like interface to Google Spreadsheets for .Net</summary>
+    <language>en-US</language>
+    <dependencies>
+      <dependency id="Google.GData.Documents" version="[2.2.0.0]" />
+      <dependency id="Google.GData.Spreadsheets" version="[2.2.0.0]" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="GDataDB\bin\Release\GDataDB.*" target="lib" />
+  </files>
+</package>
