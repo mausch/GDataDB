@@ -9,7 +9,7 @@ namespace GDataDB {
         /// <typeparam name="T"></typeparam>
         /// <param name="name"></param>
         /// <returns></returns>
-        ITable<T> CreateTable<T>(string name);
+        ITable<T> CreateTable<T>(string name) where T: new();
 
         /// <summary>
         /// Gets an existing worksheet in this document.
@@ -17,7 +17,7 @@ namespace GDataDB {
         /// <typeparam name="T"></typeparam>
         /// <param name="name"></param>
         /// <returns>Searched worksheet or null if not found</returns>
-        ITable<T> GetTable<T>(string name);
+        ITable<T> GetTable<T>(string name) where T : new();
 
         /// <summary>
         /// Deletes this spreadsheet document

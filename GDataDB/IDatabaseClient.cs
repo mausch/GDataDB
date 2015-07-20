@@ -1,4 +1,3 @@
-using Google.GData.Client;
 
 namespace GDataDB {
     /// <summary>
@@ -6,15 +5,12 @@ namespace GDataDB {
     /// </summary>
     public interface IDatabaseClient {
 
-        IService DocumentService { get; }
-        IService SpreadsheetService { get; }
-
         /// <summary>
         /// Creates a new <see cref="IDatabase"/> (spreadsheet document)
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        IDatabase CreateDatabase(string name);
+        IDatabase CreateDatabase(string parentRef, string name);
 
         /// <summary>
         /// Gets an existing <see cref="IDatabase"/> (spreadsheet document)

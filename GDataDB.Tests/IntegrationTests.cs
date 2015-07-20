@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using GDataDB.Linq;
 using NUnit.Framework;
@@ -23,10 +24,13 @@ namespace GDataDB.Tests {
 		[TestFixtureSetUp]
 		public void FixtureSetup() {
 			Console.WriteLine("Connecting");
-			var client = new DatabaseClient("you@gmail.com", "password");
-			const string dbName = "IntegrationTests";
+            var client = new DatabaseClient(
+                clientEmail: "xxx@developer.gserviceaccount.com",
+                privateKey: File.ReadAllBytes(@"xxx.p12"));
+
+            const string dbName = "IntegrationTests";
 			Console.WriteLine("Opening or creating database");
-			db = client.GetDatabase(dbName) ?? client.CreateDatabase(dbName);
+			db = client.GetDatabase(dbName) ?? client.CreateDatabase("root", dbName);
 			const string tableName = "IntegrationTests";
 			Console.WriteLine("Opening or creating table");
 			table = db.GetTable<IntegrationEntity>(tableName) ?? db.CreateTable<IntegrationEntity>(tableName);
@@ -41,8 +45,8 @@ namespace GDataDB.Tests {
 
         [TestFixtureTearDown]
         public void FixtureTearDown() {
-            table.Delete();
-            db.Delete();
+            //table.Delete();
+            //db.Delete();
         }
 
         [Test]

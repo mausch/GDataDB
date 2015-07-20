@@ -83,8 +83,5 @@ namespace GDataDB {
         /// <param name="q">query parameters</param>
         /// <returns>Matching rows</returns>
         IList<IRow<T>> Find(Query q);
-
-
-        Uri GetFeedUrl();
     }
 }

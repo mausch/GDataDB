@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using GDataDB;
 using GDataDB.Linq;
@@ -7,14 +8,13 @@ namespace Sample {
 	internal class Program {
 		private static void Main(string[] args) {
 			Console.WriteLine("Connecting");
-			var client = new DatabaseClient("you@gmail.com", "password");
+			var client = new DatabaseClient("you@gmail.com", File.ReadAllBytes("key.p12"));
 			const string dbName = "testing";
 			Console.WriteLine("Opening or creating database");
-			var db = client.GetDatabase(dbName) ?? client.CreateDatabase(dbName);
+			var db = client.GetDatabase(dbName) ?? client.CreateDatabase("", dbName);
 			const string tableName = "testtable";
 			Console.WriteLine("Opening or creating table");
 			var t = db.GetTable<Entity>(tableName) ?? db.CreateTable<Entity>(tableName);
-			Console.WriteLine("Feed url for this table is '{0}'", t.GetFeedUrl());
 			var all = t.FindAll();
 			Console.WriteLine("{0} elements", all.Count);
 			var r = all.Count > 0 ? all[0] : t.Add(new Entity {Conteudo = "some content", Amount = 5});
