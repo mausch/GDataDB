@@ -54,15 +54,14 @@ namespace GDataDB.Impl {
         }
 
         public IRow<T> Get(int rowNumber) {
-            throw new NotImplementedException();
-
-            //var q = GetQuery();
-            //q.StartIndex = rowNumber;
-            //q.NumberToRetrieve = 1;
-            //var results = Find(q);
-            //if (results.Count == 0)
-            //    return null;
-            //return results[0];
+            var q = new Query {
+                Count = 1,
+                Start = rowNumber,
+            };
+            var results = Find(q);
+            if (results.Count == 0)
+                return null;
+            return results[0];
         }
 
         public IList<IRow<T>> FindAll() {
