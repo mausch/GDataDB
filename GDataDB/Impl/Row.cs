@@ -20,8 +20,8 @@ namespace GDataDB.Impl {
         public void Update() {
             // https://developers.google.com/google-apps/spreadsheets/#updating_a_list_row_1
             var xml = serializer.Serialize(this);
-
-            throw new NotImplementedException();
+            var http = client.RequestFactory.CreateRequest();
+            http.UploadString(Edit, method: "PUT", data: xml.ToString());
         }
 
         public void Delete() {
