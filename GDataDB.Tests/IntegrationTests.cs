@@ -50,6 +50,12 @@ namespace GDataDB.Tests {
         }
 
         [Test]
+        public void Rename() {
+            table.Rename("something");
+            table.Rename("IntegrationTests");
+        }
+
+        [Test]
         public void Add() {
             table.Add(new IntegrationEntity {
                 FloatProp = 123.45f,

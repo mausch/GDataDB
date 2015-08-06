@@ -40,7 +40,15 @@ namespace GDataDB.Impl {
         }
 
         public void Rename(string newName) {
-            throw new NotImplementedException();
+            var http = client.RequestFactory.CreateRequest();
+            var response = http.DownloadString(worksheetUri);
+            var xmlResponse = XDocument.Parse(response);
+            var title = xmlResponse.Root.Element(DatabaseClient.AtomNs + "title");
+            if (title == null)
+                throw new Exception("Title was null in worksheet feed entry");
+            title.Value = newName;
+            http = client.RequestFactory.CreateRequest();
+            http.UploadString(worksheetUri, method: "PUT", data: xmlResponse.Root.ToString());
         }
 
         public IRow<T> Add(T e) {
