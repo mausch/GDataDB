@@ -103,19 +103,17 @@ namespace GDataDB.Impl {
         public static string SerializeQuery(Query q) {
             var b = new StringBuilder();
 
-            // TODO URLencode
-
             if (q.FreeQuery != null)
-                b.Append("q=" + q.FreeQuery + "&");
+                b.Append("q=" + Utils.UrlEncode(q.FreeQuery) + "&");
             if (q.StructuredQuery != null)
-                b.Append("sq=" + q.StructuredQuery + "&");
+                b.Append("sq=" + Utils.UrlEncode(q.StructuredQuery) + "&");
             if (q.Start > 0)
                 b.Append("start-index=" + q.Start + "&");
             if (q.Count > 0)
                 b.Append("max-results=" + q.Count + "&");
             if (q.Order != null) {
                 if (q.Order.ColumnName != null)
-                    b.Append("orderby=column:" + q.Order.ColumnName + "&");
+                    b.Append("orderby=column:" + Utils.UrlEncode(q.Order.ColumnName) + "&");
                 if (q.Order.Descending)
                     b.Append("reverse=true&");
             }

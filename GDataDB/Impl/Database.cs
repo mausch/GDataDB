@@ -44,7 +44,7 @@ namespace GDataDB.Impl {
 
         public ITable<T> GetTable<T>(string name) where T: new() {
             var uriBuilder = new UriBuilder(worksheetFeed) {
-                Query = "title-exact=true&title=" + name, // TODO URLEncode
+                Query = "title-exact=true&title=" + Utils.UrlEncode(name),
             };
             var http = client.RequestFactory.CreateRequest();
             var rawResponse = http.DownloadString(uriBuilder.Uri);

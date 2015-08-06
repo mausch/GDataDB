@@ -56,6 +56,7 @@
     <Compile Include="IDatabase.cs" />
     <Compile Include="IDatabaseClient.cs" />
     <Compile Include="Impl\Lazy.cs" />
+    <Compile Include="Impl\Utils.cs" />
     <Compile Include="IRow.cs" />
     <Compile Include="ITable.cs" />
     <Compile Include="Impl\OAuth2Token.cs" />
