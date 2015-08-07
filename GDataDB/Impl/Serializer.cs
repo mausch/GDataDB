@@ -17,23 +17,25 @@ namespace GDataDB.Impl {
         public static readonly XNamespace GdNs = "http://schemas.google.com/g/2005";
 
         public XElement SerializeNewRow(T e) {
-            return new XElement(DatabaseClient.AtomNs + "entry",
+            return new XElement(Utils.AtomNs + "entry",
                 new XAttribute(XNamespace.Xmlns + "gsx", GsxNs),
                 //new XElement(DatabaseClient.AtomNs + "id", "123"),
                 SerializeFields(e).ToArray());
         }
 
+        public IEnumerable<PropertyInfo> GetFields() {
+            return typeof(T).GetProperties().Where(p => p.CanRead);
+        }
+
         public IEnumerable<XElement> SerializeFields(T e) {
-            return 
-                from p in typeof(T).GetProperties() 
-                where p.CanRead 
-                select new XElement(GsxNs + p.Name.ToLowerInvariant(), ToNullOrString(p.GetValue(e, null)));
+            return GetFields()
+                .Select(p => new XElement(GsxNs + p.Name.ToLowerInvariant(), ToNullOrString(p.GetValue(e, null))));
         }
 
         public XElement Serialize(Row<T> row) {
-            var e = new XElement(DatabaseClient.AtomNs + "entry", 
+            var e = new XElement(Utils.AtomNs + "entry", 
                 new XAttribute(GdNs + "etag", row.Etag));
-            e.Add(new XElement(DatabaseClient.AtomNs + "id", row.Id.AbsoluteUri));
+            e.Add(new XElement(Utils.AtomNs + "id", row.Id.AbsoluteUri));
             e.Add(SerializeFields(row.Element));
             return e;
         }
@@ -74,9 +76,9 @@ namespace GDataDB.Impl {
 
         public IRow<T> DeserializeRow(XElement entry, DatabaseClient client) {
             var etag = entry.Attribute(GdNs + "etag").Value;
-            var id = new Uri(entry.Element(DatabaseClient.AtomNs + "id").Value);
+            var id = new Uri(entry.Element(Utils.AtomNs + "id").Value);
             var edit = entry
-                .Elements(DatabaseClient.AtomNs + "link")
+                .Elements(Utils.AtomNs + "link")
                 .Where(e => e.Attribute("rel").Value == "edit")
                 .Select(e => new Uri(e.Attribute("href").Value))
                 .FirstOrDefault();

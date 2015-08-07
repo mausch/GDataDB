@@ -9,7 +9,6 @@ using Newtonsoft.Json;
 
 namespace GDataDB {
 	public class DatabaseClient : IDatabaseClient {
-        public static readonly XNamespace AtomNs = "http://www.w3.org/2005/Atom";
 
         public readonly GDataDBRequestFactory RequestFactory;
 
@@ -81,12 +80,12 @@ namespace GDataDB {
 		}
 
         public static Uri ExtractEntryContent(XDocument xdoc) {
-            return ExtractEntryContent(xdoc.Root.Elements(AtomNs + "entry"));
+            return ExtractEntryContent(xdoc.Root.Elements(Utils.AtomNs + "entry"));
         }
 
         public static Uri ExtractEntryContent(IEnumerable<XElement> entries) {
             var selectMany = entries
-                .SelectMany(e => e.Elements(AtomNs + "content"));
+                .SelectMany(e => e.Elements(Utils.AtomNs + "content"));
             var xAttributes = selectMany
                 .SelectMany(e => e.Attributes("src"));
             var enumerable = xAttributes

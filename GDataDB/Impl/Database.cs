@@ -14,24 +14,26 @@ namespace GDataDB.Impl {
             this.worksheetFeed = worksheetFeed;
         }
 
-        private static readonly XNamespace spreadsheetsNs = "http://schemas.google.com/spreadsheets/2006";
-
         public ITable<T> CreateTable<T>(string name) where T: new() {
             var length = typeof(T).GetProperties().Length;
             var http = client.RequestFactory.CreateRequest();
 
             var request = new XDocument(
-                new XElement(DatabaseClient.AtomNs + "entry",
-                    new XElement(DatabaseClient.AtomNs + "title", name),
-                    new XElement(spreadsheetsNs + "rowCount", 1),
-                    new XElement(spreadsheetsNs + "colCount", length)
+                new XElement(Utils.AtomNs + "entry",
+                    new XElement(Utils.AtomNs + "title", name),
+                    new XElement(Utils.SpreadsheetsNs + "rowCount", 1),
+                    new XElement(Utils.SpreadsheetsNs + "colCount", length)
                     )
                 );
             var response = http.UploadString(worksheetFeed.AbsoluteUri, request.ToString());
             var xmlResponse = XDocument.Parse(response);
+
+            // i.e. https://spreadsheets.google.com/feeds/list/key/worksheetId/private/full
             var listFeedUri = DatabaseClient.ExtractEntryContent(new[] {xmlResponse.Root});
+
+            // i.e. https://spreadsheets.google.com/feeds/worksheets/key/private/full/worksheetId/version
             var editUri = xmlResponse.Root
-                .Elements(DatabaseClient.AtomNs + "link")
+                .Elements(Utils.AtomNs + "link")
                 .Where(e => e.Attribute("rel").Value == "edit")
                 .Select(e => new Uri(e.Attribute("href").Value))
                 .FirstOrDefault();
@@ -55,8 +57,8 @@ namespace GDataDB.Impl {
                 return null;
 
             var editUri = xmlResponse.Root
-                .Elements(DatabaseClient.AtomNs + "entry")
-                .SelectMany(e => e.Elements(DatabaseClient.AtomNs + "link"))
+                .Elements(Utils.AtomNs + "entry")
+                .SelectMany(e => e.Elements(Utils.AtomNs + "link"))
                 .Where(e => e.Attribute("rel").Value == "edit")
                 .Select(e => new Uri(e.Attribute("href").Value))
                 .FirstOrDefault();

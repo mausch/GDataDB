@@ -43,7 +43,7 @@ namespace GDataDB.Impl {
             var http = client.RequestFactory.CreateRequest();
             var response = http.DownloadString(worksheetUri);
             var xmlResponse = XDocument.Parse(response);
-            var title = xmlResponse.Root.Element(DatabaseClient.AtomNs + "title");
+            var title = xmlResponse.Root.Element(Utils.AtomNs + "title");
             if (title == null)
                 throw new Exception("Title was null in worksheet feed entry");
             title.Value = newName;
@@ -128,7 +128,7 @@ namespace GDataDB.Impl {
             };
             var rawResponse = http.DownloadString(uriBuilder.Uri);
             var xmlResponse = XDocument.Parse(rawResponse);
-            return xmlResponse.Root.Elements(DatabaseClient.AtomNs + "entry")
+            return xmlResponse.Root.Elements(Utils.AtomNs + "entry")
                 .Select(e => serializer.DeserializeRow(e, client))
                 .ToList();
         }
