@@ -93,10 +93,11 @@ namespace GDataDB.Impl {
 
             string serializedPayload = JsonConvert.SerializeObject(payload);
 
-            using (var hashAlg = new SHA256CryptoServiceProvider()) {
+            using (var hashAlg = new SHA256Managed()) {
+                hashAlg.Initialize();
                 var headerAndPayload = UrlBase64Encode(serializedHeader) + "." + UrlBase64Encode(serializedPayload);
-                byte[] assertionHash = hashAlg.ComputeHash(Encoding.ASCII.GetBytes(headerAndPayload));
-                var signature = UrlBase64Encode(privateKey.SignHash(assertionHash, "2.16.840.1.101.3.4.2.1"));
+                var headerPayloadBytes = Encoding.ASCII.GetBytes(headerAndPayload);
+                var signature = UrlBase64Encode(privateKey.SignData(headerPayloadBytes, hashAlg));
                 return headerAndPayload + "." + signature;
             }
 
