@@ -60,6 +60,16 @@
     <Compile Include="IRow.cs" />
     <Compile Include="ITable.cs" />
     <Compile Include="Impl\OAuth2Token.cs" />
+    <Compile Include="Linq\Impl\Evaluator.cs" />
+    <Compile Include="Linq\Impl\ExpressionVisitor.cs" />
+    <Compile Include="Linq\Impl\GDataDBQueryProvider.cs" />
+    <Compile Include="Linq\Impl\OrderTranslator.cs" />
+    <Compile Include="Linq\Impl\Query.cs" />
+    <Compile Include="Linq\Impl\QueryProvider.cs" />
+    <Compile Include="Linq\Impl\QueryTranslator.cs" />
+    <Compile Include="Linq\Impl\TypeSystem.cs" />
+    <Compile Include="Linq\Impl\WhereTranslator.cs" />
+    <Compile Include="Linq\ITableExtensions.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query.cs" />

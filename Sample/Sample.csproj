@@ -50,10 +50,6 @@
       <Project>{9B543220-CB1D-414D-9787-2DDC08F0EBD1}</Project>
       <Name>GDataDB</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GDataDB.Linq\GDataDB.Linq.csproj">
-      <Project>{B6F26D83-72B3-4B19-9156-4C2FB2C7DBFF}</Project>
-      <Name>GDataDB.Linq</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -49,17 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Impl\Evaluator.cs" />
-    <Compile Include="Impl\ExpressionVisitor.cs" />
-    <Compile Include="Impl\GDataDBQueryProvider.cs" />
-    <Compile Include="ITableExtensions.cs" />
-    <Compile Include="Impl\OrderTranslator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Impl\Query.cs" />
-    <Compile Include="Impl\QueryProvider.cs" />
-    <Compile Include="Impl\QueryTranslator.cs" />
-    <Compile Include="Impl\WhereTranslator.cs" />
-    <Compile Include="Impl\TypeSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GDataDB\GDataDB.csproj">
