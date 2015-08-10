@@ -55,12 +55,11 @@ namespace GDataDB {
         }
 
 		public IDatabase GetDatabase(string name) {
-		    var uriBuilder = new UriBuilder(new Uri("https://spreadsheets.google.com/feeds/spreadsheets/private/full")) {
-		        Query = "title-exact=true&title=" + name
-		    };
+
+            var uri = "https://spreadsheets.google.com/feeds/spreadsheets/private/full?title-exact=true&title=" + Utils.UrlEncode(name);
 
             var http = RequestFactory.CreateRequest();
-            var rawResponse = http.DownloadString(uriBuilder.Uri);
+            var rawResponse = http.DownloadString(uri);
             var xmlResponse = XDocument.Parse(rawResponse);
 
             var feedUri = ExtractEntryContent(xmlResponse);

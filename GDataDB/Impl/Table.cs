@@ -123,10 +123,8 @@ namespace GDataDB.Impl {
 
         public IList<IRow<T>> Find(Query q) {
             var http = client.RequestFactory.CreateRequest();
-            var uriBuilder = new UriBuilder(listFeedUri) {
-                Query = SerializeQuery(q),
-            };
-            var rawResponse = http.DownloadString(uriBuilder.Uri);
+            var uri = listFeedUri + "?" + SerializeQuery(q);
+            var rawResponse = http.DownloadString(uri);
             var xmlResponse = XDocument.Parse(rawResponse);
             return xmlResponse.Root.Elements(Utils.AtomNs + "entry")
                 .Select(e => serializer.DeserializeRow(e, client))
