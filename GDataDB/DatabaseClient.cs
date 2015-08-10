@@ -45,7 +45,7 @@ namespace GDataDB {
             data.AppendLine(",,,,,,,,,,,,,,,");
             data.AppendLine("--" + boundary + "--");
             var response = http.UploadString("https://content.googleapis.com/upload/drive/v2/files?uploadType=multipart&convert=true", data: data.ToString());
-            Console.WriteLine(response);
+            //Console.WriteLine(response);
 
             var jsonResponse = JsonConvert.DeserializeObject<Dictionary<string, object>>(response);
 
