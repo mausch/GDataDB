@@ -48,13 +48,15 @@ namespace GDataDB.Impl {
 
             var entries =
                 from field in fields.Select((p, i) => new { p.Name, Index = i })
-                let column = ((char)('A' + field.Index)).ToString() // TODO see what happens beyond Z
-                let cell = column + (field.Index + 1)
-                let id = string.Format("https://spreadsheets.google.com/feeds/cells/{0}/{1}/private/full/R1C{2}", key, worksheetId, field.Index)
+                let columnName = ((char)('A' + field.Index)).ToString() // TODO see what happens beyond Z
+                let column = (field.Index + 1).ToString()
+                let row = "1"
+                let cell = columnName + row
+                let id = string.Format("https://spreadsheets.google.com/feeds/cells/{0}/{1}/private/full/R1C{2}", key, worksheetId, column)
                 let edit = id + "/1"
                 select new XElement(Utils.AtomNs + "entry",
                                 new XElement(Utils.BatchNs + "id", cell),
-                                new XElement(Utils.BatchNs + "operation", "update"),
+                                new XElement(Utils.BatchNs + "operation", new XAttribute("type", "update")),
                                 new XElement(Utils.AtomNs + "id", id),
                                 new XElement(Utils.AtomNs + "edit", 
                                     new XAttribute("rel", "edit"),
@@ -62,7 +64,7 @@ namespace GDataDB.Impl {
                                     new XAttribute("href", edit)),
                                 new XElement(Utils.SpreadsheetsNs + "cell", 
                                     new XAttribute("row", 1),
-                                    new XAttribute("col", field.Index),
+                                    new XAttribute("col", column),
                                     new XAttribute("inputValue", field.Name.ToLowerInvariant())));
 
             var feed = new XDocument(new XElement(Utils.AtomNs + "feed", entries));
@@ -70,6 +72,7 @@ namespace GDataDB.Impl {
             var batchCellUri = string.Format("https://spreadsheets.google.com/feeds/cells/{0}/{1}/private/full/batch", key, worksheetId);
 
             http = client.RequestFactory.CreateRequest();
+            http.Headers.Add("If-Match", "*");
             http.UploadString(batchCellUri, method: "POST", data: feed.ToString());
 
             return new Table<T>(client, listFeedUri: listFeedUri, worksheetUri: editUri);
