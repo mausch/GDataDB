@@ -9,3 +9,4 @@ obj/*
 Build
 packages/*
 .nuget/*.exe
+*.nupkg
