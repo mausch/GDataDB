@@ -30,7 +30,7 @@ namespace GDataDB.Tests {
 
             const string dbName = "IntegrationTests";
 			Console.WriteLine("Opening or creating database");
-			db = client.GetDatabase(dbName) ?? client.CreateDatabase("root", dbName);
+			db = client.GetDatabase(dbName) ?? client.CreateDatabase(dbName);
 			const string tableName = "IntegrationTests";
 			Console.WriteLine("Opening or creating table");
 			table = db.GetTable<IntegrationEntity>(tableName) ?? db.CreateTable<IntegrationEntity>(tableName);

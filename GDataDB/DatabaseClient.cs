@@ -21,7 +21,7 @@ namespace GDataDB {
             RequestFactory = new GDataDBRequestFactory(clientEmail, privateKey);
 		}
 
-		public IDatabase CreateDatabase(string parentRef, string name) {
+		public IDatabase CreateDatabase(string name) {
             var http = RequestFactory.CreateRequest();
             var boundary = Guid.NewGuid().ToString();
             http.Headers.Set("Content-Type", string.Format("multipart/related; boundary=\"{0}\"", boundary));
@@ -34,7 +34,7 @@ namespace GDataDB {
                 parents = new[] {
                     new {
                         kind = "drive#fileLink",
-                        id = parentRef,
+                        id = "",
                     },
                 }
             }));

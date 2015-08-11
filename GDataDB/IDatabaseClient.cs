@@ -10,7 +10,7 @@ namespace GDataDB {
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        IDatabase CreateDatabase(string parentRef, string name);
+        IDatabase CreateDatabase(string name);
 
         /// <summary>
         /// Gets an existing <see cref="IDatabase"/> (spreadsheet document)

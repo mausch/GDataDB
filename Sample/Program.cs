@@ -11,7 +11,7 @@ namespace Sample {
 			var client = new DatabaseClient("you@gmail.com", File.ReadAllBytes("key.p12"));
 			const string dbName = "testing";
 			Console.WriteLine("Opening or creating database");
-			var db = client.GetDatabase(dbName) ?? client.CreateDatabase("", dbName);
+			var db = client.GetDatabase(dbName) ?? client.CreateDatabase(dbName);
 			const string tableName = "testtable";
 			Console.WriteLine("Opening or creating table");
 			var t = db.GetTable<Entity>(tableName) ?? db.CreateTable<Entity>(tableName);
