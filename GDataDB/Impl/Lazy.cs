@@ -36,7 +36,7 @@ using System.Threading;
 using System.Diagnostics;
 
 namespace System.Threading {
-    public enum LazyThreadSafetyMode {
+    internal enum LazyThreadSafetyMode {
         None,
         PublicationOnly,
         ExecutionAndPublication
@@ -48,7 +48,7 @@ namespace System {
     [ComVisibleAttribute(false)]
     [HostProtectionAttribute(SecurityAction.LinkDemand, Synchronization = true, ExternalThreading = true)]
     [DebuggerDisplay("ThreadSafetyMode={Mode}, IsValueCreated={IsValueCreated}, IsValueFaulted={IsValueFaulted}, Value={ValueForDebugDisplay}")]
-    public class Lazy<T> {
+    internal class Lazy<T> {
         T value;
         Func<T> factory;
         object monitor;
