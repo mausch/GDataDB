@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Xml.Linq;
 
 namespace GDataDB.Impl {
@@ -14,10 +16,8 @@ namespace GDataDB.Impl {
             this.worksheetFeed = worksheetFeed;
         }
 
-        public ITable<T> CreateTable<T>(string name) where T: new() {
+        public ITable<T> CreateTable<T>(string name) where T : new() {
             var fields = new Serializer<T>().GetFields();
-
-            var http = client.RequestFactory.CreateRequest();
 
             var request = new XDocument(
                 new XElement(Utils.AtomNs + "entry",
@@ -26,11 +26,13 @@ namespace GDataDB.Impl {
                     new XElement(Utils.SpreadsheetsNs + "colCount", fields.Count())
                     )
                 );
+
+            var http = client.RequestFactory.CreateRequest();
             var response = http.UploadString(worksheetFeed.AbsoluteUri, request.ToString());
             var xmlResponse = XDocument.Parse(response);
 
             // i.e. https://spreadsheets.google.com/feeds/list/key/worksheetId/private/full
-            var listFeedUri = DatabaseClient.ExtractEntryContent(new[] {xmlResponse.Root});
+            var listFeedUri = DatabaseClient.ExtractEntryContent(new[] { xmlResponse.Root });
 
             // i.e. https://spreadsheets.google.com/feeds/worksheets/key/private/full/worksheetId/version
             var editUri = xmlResponse.Root
@@ -39,8 +41,13 @@ namespace GDataDB.Impl {
                 .Select(e => new Uri(e.Attribute("href").Value))
                 .FirstOrDefault();
 
-            // write headers
+            WriteTableHeaders(listFeedUri, fields);
 
+            return new Table<T>(client, listFeedUri: listFeedUri, worksheetUri: editUri);
+
+        }
+
+        private void WriteTableHeaders(Uri listFeedUri, IEnumerable<PropertyInfo> fields) {
             var key = listFeedUri.Segments[3];
             key = key.Substring(0, key.Length - 1);
             var worksheetId = listFeedUri.Segments[4];
@@ -58,11 +65,11 @@ namespace GDataDB.Impl {
                                 new XElement(Utils.BatchNs + "id", cell),
                                 new XElement(Utils.BatchNs + "operation", new XAttribute("type", "update")),
                                 new XElement(Utils.AtomNs + "id", id),
-                                new XElement(Utils.AtomNs + "edit", 
+                                new XElement(Utils.AtomNs + "edit",
                                     new XAttribute("rel", "edit"),
                                     new XAttribute("type", "application/atom+xml"),
                                     new XAttribute("href", edit)),
-                                new XElement(Utils.SpreadsheetsNs + "cell", 
+                                new XElement(Utils.SpreadsheetsNs + "cell",
                                     new XAttribute("row", 1),
                                     new XAttribute("col", column),
                                     new XAttribute("inputValue", field.Name.ToLowerInvariant())));
@@ -71,11 +78,9 @@ namespace GDataDB.Impl {
 
             var batchCellUri = string.Format("https://spreadsheets.google.com/feeds/cells/{0}/{1}/private/full/batch", key, worksheetId);
 
-            http = client.RequestFactory.CreateRequest();
+            var http = client.RequestFactory.CreateRequest();
             http.Headers.Add("If-Match", "*");
             http.UploadString(batchCellUri, method: "POST", data: feed.ToString());
-
-            return new Table<T>(client, listFeedUri: listFeedUri, worksheetUri: editUri);
 
         }
 
@@ -100,7 +105,6 @@ namespace GDataDB.Impl {
 
             return new Table<T>(client, listFeedUri: feedUri, worksheetUri: editUri);
 
-            // ??? https://spreadsheets.google.com/feeds/tNXTXMh83yMWLVJfEgOWTvQ/tables
         }
 
         public void Delete() {

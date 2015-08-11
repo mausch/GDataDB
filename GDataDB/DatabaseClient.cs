@@ -21,10 +21,7 @@ namespace GDataDB {
             RequestFactory = new GDataDBRequestFactory(clientEmail, privateKey);
 		}
 
-		public IDatabase CreateDatabase(string name) {
-            var http = RequestFactory.CreateRequest();
-            var boundary = Guid.NewGuid().ToString();
-            http.Headers.Set("Content-Type", string.Format("multipart/related; boundary=\"{0}\"", boundary));
+        private static string CreateDatabaseContent(string boundary, string name) {
             var data = new StringBuilder();
             data.AppendLine("--" + boundary);
             data.AppendLine("Content-Type: application/json; charset=UTF-8");
@@ -44,8 +41,15 @@ namespace GDataDB {
             data.AppendLine();
             data.AppendLine(",,,,,,,,,,,,,,,");
             data.AppendLine("--" + boundary + "--");
-            var response = http.UploadString("https://content.googleapis.com/upload/drive/v2/files?uploadType=multipart&convert=true", data: data.ToString());
-            //Console.WriteLine(response);
+            return data.ToString();
+        }
+
+        public IDatabase CreateDatabase(string name) {
+            var http = RequestFactory.CreateRequest();
+            var boundary = Guid.NewGuid().ToString();
+            http.Headers.Set("Content-Type", string.Format("multipart/related; boundary=\"{0}\"", boundary));
+            var data = CreateDatabaseContent(boundary: boundary, name: name);
+            var response = http.UploadString("https://content.googleapis.com/upload/drive/v2/files?uploadType=multipart&convert=true", data: data);
 
             var jsonResponse = JsonConvert.DeserializeObject<Dictionary<string, object>>(response);
 
@@ -64,13 +68,6 @@ namespace GDataDB {
 
             var feedUri = ExtractEntryContent(xmlResponse);
 
-            //var feedUri = xmlResponse.Root
-            //    .Elements(AtomNs + "")
-            //    .Elements(AtomNs + "link")
-            //    .Where(e => e.Attribute("rel").Value == "http://schemas.google.com/g/2005#post")
-            //    .Select(e => new Uri(e.Attribute("href").Value))
-            //    .FirstOrDefault();
-
             if (feedUri == null)
                 return null;
 
@@ -83,13 +80,10 @@ namespace GDataDB {
         }
 
         public static Uri ExtractEntryContent(IEnumerable<XElement> entries) {
-            var selectMany = entries
-                .SelectMany(e => e.Elements(Utils.AtomNs + "content"));
-            var xAttributes = selectMany
-                .SelectMany(e => e.Attributes("src"));
-            var enumerable = xAttributes
-                .Select(a => new Uri(a.Value));
-            return enumerable
+            return entries
+                .SelectMany(e => e.Elements(Utils.AtomNs + "content"))
+                .SelectMany(e => e.Attributes("src"))
+                .Select(a => new Uri(a.Value))
                 .FirstOrDefault();
         }
 	}
