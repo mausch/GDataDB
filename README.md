@@ -12,7 +12,7 @@ A few articles documenting it:
  
 Google has changed the authentication scheme since those articles were written. Now it requires OAuth2. <br/>
 To set this up visit http://console.developers.google.com , create a new project, enable the Drive API, create a new client ID of type "service account" and download the P12 key. Use the service account email address and the P12 key [as shown in this example](https://github.com/mausch/GDataDB/blob/master/GDataDB.Tests/IntegrationTests.cs#L27-L29) .<br/>
-If you want to access any documents from your personal gmail account, share them (edit permissions) with the service account email address and make sure that they're in the root folder of Drive.
+If you want to access any documents from your personal gmail account, share them (edit permissions) with the service account email address (the one that looks like "`987191231-asdfkasjdjfk@developer.gserviceaccount.com`") and make sure that they're in the root folder of Drive.
 
 Original idea for GDataDB borrowed from https://github.com/google/gdata-python-client/blob/master/src/gdata/spreadsheet/text_db.py
 
