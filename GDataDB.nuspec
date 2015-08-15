@@ -2,7 +2,7 @@
 <package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <id>GDataDB</id>
-    <version>0.6.0.0</version>
+    <version>0.6.1.0</version>
     <authors>Mauricio Scheffer</authors>
     <owners>Mauricio Scheffer</owners>
     <licenseUrl>http://github.com/mausch/GDataDB/raw/master/license.txt</licenseUrl>
