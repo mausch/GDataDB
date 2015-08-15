@@ -12,6 +12,7 @@ namespace GDataDB.Tests {
 
 		private readonly IntegrationEntity e1 = new IntegrationEntity {
 			DateTimeProp = new DateTime(2001, 1, 1, 5, 6, 7),
+            StringProp = "ñãá",
 			IntProp = 1,
 		};
 

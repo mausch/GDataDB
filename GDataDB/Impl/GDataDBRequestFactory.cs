@@ -109,6 +109,7 @@ namespace GDataDB.Impl {
 
         public WebClient CreateRequest() {
             var http = new WebClient();
+            http.Encoding = Encoding.UTF8;
             http.Headers.Add("Authorization", "Bearer " + GetToken());
             http.Headers.Add("Content-Type", "application/atom+xml; charset=UTF-8");
             http.Headers.Add("GData-Version", "3.0");
